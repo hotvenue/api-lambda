@@ -1,0 +1,25 @@
+{
+  "name": "api-lambda",
+  "version": "0.0.1",
+  "description": "All our APIs, made with AWS Lambda",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hotvenue/api-lambda.git"
+  },
+  "keywords": [
+    "api",
+    "lambda",
+    "serverless",
+    "hotvenue"
+  ],
+  "author": "Niccolò Olivieri <niccoloolivieriachille.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hotvenue/api-lambda/issues"
+  },
+  "homepage": "https://github.com/hotvenue/api-lambda#readme"
+}
