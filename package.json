@@ -4,7 +4,7 @@
   "description": "All our APIs, made with AWS Lambda",
   "main": "index.js",
   "scripts": {
-    "eslint": "eslint",
+    "eslint": "eslint .",
     "check": "npm run eslint",
     "pretest": "npm run check",
     "test": "jest"
@@ -30,6 +30,16 @@
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.7.1"
+    "eslint-plugin-react": "^6.7.1",
+    "jest": "^17.0.3",
+    "lambda-tester": "^2.6.1",
+    "sqlite3": "^3.1.8"
+  },
+  "dependencies": {
+    "aws-serverless-express": "^1.2.0",
+    "body-parser": "^1.15.2",
+    "epilogue": "^0.7.0",
+    "express": "^4.14.0",
+    "sequelize": "^3.27.0"
   }
 }
