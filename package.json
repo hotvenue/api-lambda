@@ -4,6 +4,7 @@
   "description": "All our APIs, made with AWS Lambda",
   "main": "index.js",
   "scripts": {
+    "swagger": "swagger-jsdoc",
     "eslint": "eslint .",
     "check": "npm run eslint",
     "pretest": "npm run check",
@@ -33,7 +34,8 @@
     "eslint-plugin-react": "^6.7.1",
     "jest": "^17.0.3",
     "sqlite3": "^3.1.8",
-    "supertest": "^2.0.1"
+    "supertest": "^2.0.1",
+    "swagger-jsdoc": "^1.8.2"
   },
   "dependencies": {
     "aws-serverless-express": "^1.2.0",
