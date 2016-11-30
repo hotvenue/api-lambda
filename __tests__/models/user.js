@@ -201,5 +201,9 @@ describe('User', () => {
         expect(errEmail.message).toBeDefined();
         expect(errEmail.message).toBe('Validation isEmail failed');
       }));
+
+    it('PUT /users/:id should return error if the user doesn\'t exist', () => request(app)
+      .put('/users/99')
+      .expect(404));
   });
 });
