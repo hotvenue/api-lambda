@@ -55,6 +55,24 @@ describe('User', () => {
         expect(errEmail.message).toBeDefined();
         expect(errEmail.message).toBe('email must be unique');
       }));
+
+    it('POST /users should not create a user if wrong email', () => request(app)
+      .post('/users')
+      .send({ email: 'foo' })
+      .expect(400)
+      .expect((res) => {
+        const err = res.body.errors;
+
+        expect(err).toBeDefined();
+        expect(err).toHaveLength(1);
+
+        const errEmail = err[0];
+
+        expect(errEmail.field).toBeDefined();
+        expect(errEmail.field).toBe('email');
+        expect(errEmail.message).toBeDefined();
+        expect(errEmail.message).toBe('Validation isEmail failed');
+      }));
   });
 
   describe('Read', () => {
