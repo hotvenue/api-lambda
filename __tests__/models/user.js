@@ -206,4 +206,14 @@ describe('User', () => {
       .put('/users/99')
       .expect(404));
   });
+
+  describe('Delete', () => {
+    it('DELETE /users/:id should delete a user', () => request(app)
+      .del(`/users/${userId}`)
+      .expect(200));
+
+    it('DELETE /users/:id should return error if the user doesn\'t exist', () => request(app)
+      .del('/users/99')
+      .expect(404));
+  });
 });
