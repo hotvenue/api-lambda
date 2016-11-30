@@ -1,6 +1,8 @@
+const pkj = require('./package.json');
+
 module.exports = {
   info: {
     title: 'HotVenue',
-    version: '0.0.1',
+    version: pkj.version,
   },
 };
