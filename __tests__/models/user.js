@@ -94,4 +94,94 @@ describe('User', () => {
       .get('/users/99')
       .expect(404));
   });
+
+  describe('Update', () => {
+    it('PUT /users/:id should update the user', () => request(app)
+      .put(`/users/${userId}`)
+      .send({ email: 'fooo@baar.com' })
+      .expect(200)
+      .expect((res) => {
+        const user = res.body;
+
+        expect(user.id).toBeDefined();
+        expect(user.email).toBeDefined();
+        expect(user.email).toBe('fooo@baar.com');
+        expect(user.telegramId).toBeDefined();
+        expect(user.telegramId).toBeNull();
+        expect(user.createdAt).toBeDefined();
+        expect(user.updatedAt).toBeDefined();
+      }));
+
+    it('PUT /users/:id should not update the user if no email ("")', () => request(app)
+      .put(`/users/${userId}`)
+      .send({ email: '' })
+      .expect(400)
+      .expect((res) => {
+        const err = res.body.errors;
+
+        expect(err).toBeDefined();
+        expect(err).toHaveLength(1);
+
+        const errEmail = err[0];
+
+        expect(errEmail.field).toBeDefined();
+        expect(errEmail.field).toBe('email');
+        expect(errEmail.message).toBeDefined();
+        expect(errEmail.message).toBe('email cannot be null');
+      }));
+
+    it('PUT /users/:id should not update the user if no email (null)', () => request(app)
+      .put(`/users/${userId}`)
+      .send({ email: null })
+      .expect(400)
+      .expect((res) => {
+        const err = res.body.errors;
+
+        expect(err).toBeDefined();
+        expect(err).toHaveLength(1);
+
+        const errEmail = err[0];
+
+        expect(errEmail.field).toBeDefined();
+        expect(errEmail.field).toBe('email');
+        expect(errEmail.message).toBeDefined();
+        expect(errEmail.message).toBe('email cannot be null');
+      }));
+
+    it('PUT /users/:id should not update the user if existing email', () => request(app)
+      .put(`/users/${userId}`)
+      .send({ email: 'bar@foo.com' })
+      .expect(400)
+      .expect((res) => {
+        const err = res.body.errors;
+
+        expect(err).toBeDefined();
+        expect(err).toHaveLength(1);
+
+        const errEmail = err[0];
+
+        expect(errEmail.field).toBeDefined();
+        expect(errEmail.field).toBe('email');
+        expect(errEmail.message).toBeDefined();
+        expect(errEmail.message).toBe('email must be unique');
+      }));
+
+    it('PUT /users/:id should not update the user if wrong email', () => request(app)
+      .put(`/users/${userId}`)
+      .send({ email: 'bar' })
+      .expect(400)
+      .expect((res) => {
+        const err = res.body.errors;
+
+        expect(err).toBeDefined();
+        expect(err).toHaveLength(1);
+
+        const errEmail = err[0];
+
+        expect(errEmail.field).toBeDefined();
+        expect(errEmail.field).toBe('email');
+        expect(errEmail.message).toBeDefined();
+        expect(errEmail.message).toBe('Validation isEmail failed');
+      }));
+  });
 });

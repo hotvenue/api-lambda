@@ -14,7 +14,7 @@ module.exports = function createUser(sequelize, DataTypes) {
         isEmail: true,
       },
       set(email) {
-        this.setDataValue('email', email.toLowerCase());
+        this.setDataValue('email', email ? email.toLowerCase() : null);
       },
     },
 
