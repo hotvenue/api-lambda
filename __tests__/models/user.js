@@ -15,6 +15,48 @@ describe('User', () => {
       userId = users[0].id;
     }));
 
+  describe('Create', () => {
+    it('POST /users should create a user', () => request(app)
+      .post('/users')
+      .send({ email: 'new@user.com' })
+      .expect(201));
+
+    it('POST /users should not create a user if no email', () => request(app)
+      .post('/users')
+      .expect(400)
+      .expect((res) => {
+        const err = res.body.errors;
+
+        expect(err).toBeDefined();
+        expect(err).toHaveLength(1);
+
+        const errEmail = err[0];
+
+        expect(errEmail.field).toBeDefined();
+        expect(errEmail.field).toBe('email');
+        expect(errEmail.message).toBeDefined();
+        expect(errEmail.message).toBe('email cannot be null');
+      }));
+
+    it('POST /users should not create a user if existing email', () => request(app)
+      .post('/users')
+      .send({ email: 'foo@bar.com' })
+      .expect(400)
+      .expect((res) => {
+        const err = res.body.errors;
+
+        expect(err).toBeDefined();
+        expect(err).toHaveLength(1);
+
+        const errEmail = err[0];
+
+        expect(errEmail.field).toBeDefined();
+        expect(errEmail.field).toBe('email');
+        expect(errEmail.message).toBeDefined();
+        expect(errEmail.message).toBe('email must be unique');
+      }));
+  });
+
   describe('Read', () => {
     it('GET /users should return 2 users', () => request(app)
       .get('/users')
