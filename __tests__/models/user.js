@@ -6,20 +6,16 @@ const models = require('../../app/models');
 describe('User', () => {
   let userId;
 
-  function beforeEachUser() {
-    return models.sequelize.sync({ force: true })
-      .then(() => Promise.all([
-        models.user.create({ email: 'foo@bar.com' }),
-        models.user.create({ email: 'bar@foo.com' }),
-      ]))
-      .then((users) => {
-        userId = users[0].id;
-      });
-  }
+  beforeEach(() => models.sequelize.sync({ force: true })
+    .then(() => Promise.all([
+      models.user.create({ email: 'foo@bar.com' }),
+      models.user.create({ email: 'bar@foo.com' }),
+    ]))
+    .then((users) => {
+      userId = users[0].id;
+    }));
 
   describe('Read', () => {
-    beforeEach(beforeEachUser);
-
     it('GET /users should return 2 users', () => request(app)
       .get('/users')
       .expect(200)
