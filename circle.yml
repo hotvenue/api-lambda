@@ -1,0 +1,38 @@
+machine:
+  node:
+    version: 4.3.2
+  environment:
+    # AWS_ACCOUNT_ID
+    # AWS_DEFAULT_REGION
+    # AWS_ACCESS_KEY_ID
+    # AWS_SECRET_ACCESS_KEY
+    #
+    # LOCAL_ES_ENDPOINT
+    #
+    # PROD_DB_DATABASE
+    # PROD_DB_HOSTNAME
+    # PROD_DB_PASSWORD
+    # PROD_DB_USERNAME
+    APP_NAME: hotvenue-api-lambda
+    S3_BUCKET: hotvenue-lambda
+    LAMBDA_NAME: HotVenueApi
+
+dependencies:
+  pre:
+    - chmod +x things/circleci/pre-dependencies.sh
+    - ./things/circleci/pre-dependencies.sh
+  post:
+    - pip install awscli
+    - aws configure set default.region $AWS_DEFAULT_REGION
+    - aws configure set default.output json
+    - npm run swagger -- -d swagger.js app/models/* -o swagger.json
+
+deployment:
+  lambda:
+    branch: master
+    commands:
+      - rm -rf __tests__
+      - rm -rf .git
+      - zip -r -q ${LAMBDA_NAME}.zip .
+      - aws s3 cp ${LAMBDA_NAME}.zip s3://${S3_BUCKET}
+      - aws s3 cp swagger.json s3://${S3_BUCKET}
