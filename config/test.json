@@ -2,5 +2,9 @@
   "database": {
     "dialect": "sqlite",
     "logging": false
+  },
+
+  "log": {
+    "level": "error"
   }
 }
