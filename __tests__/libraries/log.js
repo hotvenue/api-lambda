@@ -1,4 +1,4 @@
-const log = require('../app/libraries/log');
+const log = require('../../app/libraries/log');
 
 describe('Log', () => {
   const stdout = process.stdout.write;
