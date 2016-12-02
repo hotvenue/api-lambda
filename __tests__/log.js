@@ -1,17 +1,38 @@
+const log = require('../app/libraries/log');
+
 describe('Log', () => {
-  const consoleLog = console.log;
+  const stdout = process.stdout.write;
+  const stderr = process.stderr.write;
 
   beforeAll(() => {
-    console.log = jest.fn();
+    process.stdout.write = jest.fn();
+    process.stderr.write = jest.fn();
   });
 
   afterAll(() => {
-    console.log = consoleLog;
+    process.stdout.write = stdout;
+    process.stderr.write = stderr;
   });
 
-  it('should log something', () => {
-    console.log('foo');
+  log.labels.forEach((label) => {
+    const level = 'error';
 
-    expect(console.log).lastCalledWith('foo');
+    describe(label, () => {
+      it('should log something', () => {
+        const str = 'foo';
+
+        log[label][level](str);
+
+        expect(process.stdout.write).not.toHaveBeenCalled();
+
+        const msg = JSON.parse(process.stderr.write.mock.calls.pop());
+
+        expect(msg).toBeInstanceOf(Object);
+        expect(msg.level).toBe(level);
+        expect(msg.message).toBe(str);
+        expect(msg.label).toBe(label);
+        expect(msg.timestamp).toBeDefined();
+      });
+    });
   });
 });

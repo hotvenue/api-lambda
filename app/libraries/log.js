@@ -4,16 +4,6 @@ const winston = require('winston');
 
 const configLog = config.get('log');
 
-const loggerNames = [
-  'default',
-  'server',
-  'db',
-  'aws',
-  'jobs',
-  'telegram',
-  'analyticsFrame',
-];
-
 // { error: 0, warn: 1, info: 2, verbose: 3, debug: 4, silly: 5 }
 
 function timestamp() {
@@ -27,7 +17,6 @@ function loggerFactory(label) {
         json: true,
         label,
         level: label === 'server' ? 'warn' : configLog.level,
-        silent: label === 'analyticsFrame',
         timestamp,
       }),
     ],
@@ -36,8 +25,18 @@ function loggerFactory(label) {
 
 const log = module.exports = {};
 
-loggerNames.forEach((loggerName) => {
-  log[loggerName] = loggerFactory(loggerName);
+log.labels = [
+  'default',
+  'server',
+  'db',
+  'aws',
+  'jobs',
+  'telegram',
+  'analyticsFrame',
+];
+
+log.labels.forEach((label) => {
+  log[label] = loggerFactory(label);
 });
 
 Object.keys(log.default.levels).forEach((level) => {
