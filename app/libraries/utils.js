@@ -1,32 +1,7 @@
 const fs = require('fs');
 const crypto = require('crypto');
 
-const log = require('./log');
-const cloud = require('./cloud');
-
 module.exports = {
-  /**
-   * Upload a file to the cloud
-   *
-   * @param {string} what - What I'm trying to upload: 'location frame image', 'video'
-   * @param {string} oldPath - The path where the file is right now
-   * @param {string} newPath - The path (URI) where the file must be uploaded
-   *
-   * @return {Promise}
-   */
-  uploadFile({ what, oldPath, newPath }) {
-    return cloud.upload(oldPath, newPath)
-      .then(() => {
-        fs.unlinkSync(oldPath);
-      })
-      .catch((err) => {
-        log.debug(`Error while uploading ${what}`);
-        log.error(err);
-
-        throw new Error(err);
-      });
-  },
-
   /**
    * Creates the hash of a file
    *
