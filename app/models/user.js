@@ -38,7 +38,7 @@
  *             $ref: '#/definitions/User'
  */
 module.exports = function createUser(sequelize, DataTypes) {
-  const user = sequelize.define('user', {
+  return sequelize.define('user', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -67,6 +67,4 @@ module.exports = function createUser(sequelize, DataTypes) {
       },
     },
   });
-
-  return user;
 };

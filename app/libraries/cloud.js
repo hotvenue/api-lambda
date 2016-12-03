@@ -63,6 +63,44 @@ module.exports = {
       });
   },
 
+  /**
+   * Delete a file from a remote location
+   *
+   * @param {string} source
+   *
+   * @return {Promise}
+   */
+  delete(source) {
+    return s3
+      .deleteObject({
+        Key: source,
+      })
+      .promise();
+  },
+
+  /**
+   * Returns object's metadata
+   *
+   * @param {string} source
+   *
+   * @return {Promise}
+   */
+  check(source) {
+    return s3
+      .headObject({
+        Key: source,
+      })
+      .promise();
+  },
+
+  /**
+   * Copy a file in the remote "fs"
+   *
+   * @param {string} source
+   * @param {string} destination
+   *
+   * @return {Promise}
+   */
   copy(source, destination) {
     source = `${awsConfig.s3.bucket}/${source}`; // eslint-disable-line no-param-reassign
 
