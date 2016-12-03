@@ -3,6 +3,8 @@ const path = require('path');
 
 const cloud = require('../../app/libraries/cloud');
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20 * 1000; // eslint-disable-line no-undef
+
 describe('Cloud', () => {
   const dir = path.join(__dirname, '..', 'assets');
 
