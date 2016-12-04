@@ -7,8 +7,6 @@ machine:
     # AWS_ACCESS_KEY_ID
     # AWS_SECRET_ACCESS_KEY
     #
-    # LOCAL_ES_ENDPOINT
-    #
     # PROD_DB_DATABASE
     # PROD_DB_HOSTNAME
     # PROD_DB_PASSWORD
