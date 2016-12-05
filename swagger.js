@@ -1,3 +1,5 @@
+'use strict';
+
 const pkj = require('./package.json');
 
 module.exports = {

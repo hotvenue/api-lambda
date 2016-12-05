@@ -1,3 +1,5 @@
+'use strict';
+
 const log = require('../../app/libraries/log');
 
 describe('Log', () => {
