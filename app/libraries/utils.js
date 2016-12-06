@@ -12,8 +12,8 @@ module.exports = {
    *
    * @return {Promise<String>}
    */
-  hashFile(path, algorithm = 'sha512') {
-    const shasum = crypto.createHash(algorithm);
+  hashFile(path, algorithm) {
+    const shasum = crypto.createHash(algorithm || 'sha512');
 
     return new Promise((resolve, reject) => {
       fs.createReadStream(path)
