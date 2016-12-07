@@ -29,4 +29,5 @@ deployment:
   lambda:
     branch: master
     commands:
+      - chmod +x ./things/circleci/deploy.sh
       - ./things/circleci/deploy.sh
