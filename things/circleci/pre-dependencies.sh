@@ -29,4 +29,4 @@ TEMPLATE_CF_PARAMS='[{
   "ParameterValue": "%s"
 }]'
 
-printf "$TEMPLATE_CF_PARAMS" ${S3_BUCKET} "${LAMBDA_NAME}-swagger.json" "${LAMBDA_NAME}.zip" > things/circleci/cloudformation-params.json
+printf "$TEMPLATE_CF_PARAMS" "${S3_BUCKET}" "${LAMBDA_NAME}-swagger.json" "${LAMBDA_NAME}.zip" > things/circleci/cloudformation-params.json
