@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Config
 config/local*
+things/circleci/cloudformation-params.json
 
 ### Swagger
 swagger.json
